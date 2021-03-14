@@ -9,7 +9,7 @@ namespace ProxieAsync
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            using (var logger = new Logger())
+            using (var logger = new Logger(CsvRow.HEADER))
             {
                 logger.AddRow(LogLevel.Debug, new CsvRow(
                     "Starting execution",

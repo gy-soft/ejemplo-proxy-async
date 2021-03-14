@@ -22,9 +22,9 @@ namespace ProxieAsync
             {LogLevel.Info, "Info"}
         };
 
-        public Logger()
+        public Logger(string header)
         {
-            InitializeLogFile();
+            InitializeLogFile(header);
             logTask = Task.Factory.StartNew(() => {
                 foreach (var row in bc.GetConsumingEnumerable())
                 {
@@ -38,13 +38,13 @@ namespace ProxieAsync
             bc.Add(row.ToCsv(LogLevels[logLevel]));
         }
         
-        private void InitializeLogFile()
+        private void InitializeLogFile(string header)
         {
             if (File.Exists(LOG_PATH))
             {
                 File.Delete(LOG_PATH);
             }
-            File.AppendAllText(LOG_PATH, CsvRow.HEADER);
+            File.AppendAllText(LOG_PATH, header);
         }
 
         public void Dispose()
